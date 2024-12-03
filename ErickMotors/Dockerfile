@@ -19,7 +19,8 @@ RUN npm install -g serve
 
 # Set environment variables
 ENV PORT=10000
+ENV HOST=0.0.0.0
 EXPOSE ${PORT}
 
-# Start the application
-CMD serve -s dist -l ${PORT}
+# Start the application with explicit host binding
+CMD serve -s dist -l tcp://${HOST}:${PORT}
