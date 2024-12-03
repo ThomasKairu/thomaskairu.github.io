@@ -2,27 +2,17 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-COPY yarn.lock ./
-
-# Install dependencies
-RUN yarn install
-
-# Copy the rest of the application
+# Copy all files
 COPY . .
 
-# Build the application
+# Install dependencies and build
+RUN yarn install
 RUN yarn build
 
 # Set environment variables
 ENV PORT=10000
 ENV NODE_ENV=production
-ENV HOST=0.0.0.0
-EXPOSE ${PORT}
+EXPOSE 10000
 
-# Install production dependencies only
-RUN yarn install --production
-
-# Start the Express server
-CMD ["yarn", "start"]
+# Start the server directly with node
+CMD node server.js
