@@ -14,13 +14,10 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Install serve to run the production build
-RUN npm install -g serve
-
 # Set environment variables
 ENV PORT=10000
 ENV HOST=0.0.0.0
 EXPOSE ${PORT}
 
-# Start the application with explicit host binding
-CMD serve -s dist -l tcp://${HOST}:${PORT}
+# Start the Express server
+CMD ["node", "server.js"]
