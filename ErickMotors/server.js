@@ -1,16 +1,19 @@
-import http from 'http';
+import express from 'express';
 
+const app = express();
 const port = process.env.PORT || 10000;
 
 console.log('Starting server...');
 console.log(`PORT environment variable: ${process.env.PORT}`);
+console.log(`Using port: ${port}`);
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Server is running');
+// Basic health check
+app.get('/health', (req, res) => {
+    res.send('OK');
 });
 
-server.listen(port, '0.0.0.0', () => {
+// Start server
+const server = app.listen(port, '0.0.0.0', () => {
     const addr = server.address();
     console.log('Server running at:');
     console.log(`- Port: ${addr.port}`);
